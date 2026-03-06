@@ -1,31 +1,37 @@
 String longestPalindrome(String s) {
-  int start = 0;
-  int maxLength = 1;
+  if (s.length < 3) {
+    return 'none';
+  }
+
+  String longest = 'none';
 
   for (int i = 0; i < s.length; i++) {
-    // Odd length palindromes
-    int left = i, right = i;
-    while (left >= 0 && right < s.length && s[left] == s[right]) {
-      if (right - left + 1 > maxLength) {
-        start = left;
-        maxLength = right - left + 1;
+    for (int j = i + 3; j <= s.length; j++) {
+      String sub = s.substring(i, j);
+      if (isPalindrome(sub) && (longest == 'none' || sub.length > longest.length)) {
+        longest = sub;
       }
-      left--;
-      right++;
-    }
-
-    // Even length palindromes
-    left = i;
-    right = i + 1;
-    while (left >= 0 && right < s.length && s[left] == s[right]) {
-      if (right - left + 1 > maxLength) {
-        start = left;
-        maxLength = right - left + 1;
-      }
-      left--;
-      right++;
     }
   }
 
-  return s.substring(start, start + maxLength);
+  return longest;
+}
+
+bool isPalindrome(String s) {
+  if (s.length < 3) {
+    return false;
+  }
+
+  int left = 0;
+  int right = s.length - 1;
+
+  while (left < right) {
+    if (s[left] != s[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+
+  return true;
 }

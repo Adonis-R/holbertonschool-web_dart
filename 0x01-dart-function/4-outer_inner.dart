@@ -1,14 +1,11 @@
-void outer(String name, String id)
-{
-  String outerVar = 'Outer variable';
-  print('Hello $name, your id is $id');
-  print(outerVar);
+void outer(String name, String id) {
+  String inner() {
+    List<String> parts = name.split(" ");
+    String firstName = parts[0];
+    String lastName = parts[1];
 
-  void inner() {
-    String innerVar = 'Inner variable';
-    print(innerVar);
+    return "Hello Agent ${lastName[0]}.$firstName your id is $id";
   }
 
-  inner();
-
+  print(inner());
 }
